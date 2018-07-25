@@ -22,7 +22,7 @@ index 150004d..95d0759 100644
          ;;
  
      --prefix)
-@@ -143,32 +143,17 @@ while test $# -gt 0; do
+@@ -143,32 +143,19 @@ while test $# -gt 0; do
          ;;
  
      --libs)
@@ -49,6 +49,8 @@ index 150004d..95d0759 100644
 -          echo "curl was built with static libraries disabled" >&2
 -          exit 1
 -        fi
++        echo "curl was built with static libraries disabled" >&2
++        exit 1
          ;;
  
      --configure)
@@ -61,7 +63,7 @@ diff --git a/docs/curl-config.1 b/docs/curl-config.1
 index 14a9d2b..ffcc004 100644
 --- a/docs/curl-config.1
 +++ b/docs/curl-config.1
-@@ -70,7 +70,9 @@ no, one or several names. If more than one name, they will appear
+@@ -70,7 +70,9 @@ no, one or several names. If more than o
  comma-separated. (Added in 7.58.0)
  .IP "--static-libs"
  Shows the complete set of libs and other linker options you will need in order
@@ -84,6 +86,3 @@ index 2ba9c39..f8f8b00 100644
  
  Name: libcurl
  URL: https://curl.haxx.se/
--- 
-2.5.0
-

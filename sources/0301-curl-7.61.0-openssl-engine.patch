@@ -1,0 +1,32 @@
+commit 23b10b6f9ff3cfb808729fe42af0712b2419a673
+Author: Paul Howarth <paul@city-fan.org>
+Date:   Wed Jul 11 12:01:38 2018 +0100
+
+    openssl: assume engine support in 1.0.0 or later
+    
+    Commit 38203f1585da changed engine detection to be version-based,
+    with a baseline of openssl 1.0.1. This does in fact break builds
+    with openssl 1.0.0, which has engine support - the configure script
+    detects that ENGINE_cleanup() is available - but <openssl/engine.h>
+    doesn't get included to declare it.
+    
+    According to upstream documentation, engine support was added to
+    mainstream openssl builds as of version 0.9.7:
+    https://github.com/openssl/openssl/blob/master/README.ENGINE
+    
+    This commit drops the version test down to 1.0.0 as version 1.0.0d
+    is the oldest version I have to test with.
+
+diff --git a/lib/vtls/openssl.c b/lib/vtls/openssl.c
+index 0b1929bd7..d5b474771 100644
+--- a/lib/vtls/openssl.c
++++ b/lib/vtls/openssl.c
+@@ -69,7 +69,7 @@
+ #include <openssl/ocsp.h>
+ #endif
+ 
+-#if (OPENSSL_VERSION_NUMBER >= 0x10001000L) && /* 1.0.1 or later */     \
++#if (OPENSSL_VERSION_NUMBER >= 0x10000000L) && /* 1.0.0 or later */     \
+   !defined(OPENSSL_NO_ENGINE)
+ #define USE_OPENSSL_ENGINE
+ #include <openssl/engine.h>

@@ -22,9 +22,6 @@
 %global have_openssl_libs %([ 0%{?fedora} -gt 17 -o 0%{?rhel} -gt 6 ] && echo 1 || echo 0)
 %endif
 
-# Use libidn2 from Fedora 25 onwards
-%global use_libidn2 %([ 0%{?fedora} -gt 24 -o 0%{?rhel} -gt 7 ] && echo 1 || echo 0)
-
 # Also build (lib)curl-minimal from Fedora 27 onwards
 %global build_minimal %([ 0%{?fedora} -gt 26 -o 0%{?rhel} -gt 7 ] && echo 1 || echo 0)
 
@@ -83,20 +80,14 @@ BuildRequires:          brotli-devel
 BuildRequires:          coreutils
 BuildRequires:          gcc
 BuildRequires:          krb5-devel
-%if %{use_libidn2}
 BuildRequires:          libidn2-devel
-%else
-BuildRequires:          libidn-devel
-%endif
 BuildRequires:          openldap-devel
 BuildRequires:          pkgconfig
 BuildRequires:          groff
 BuildRequires:          libmetalink-devel
-%if 0%{?fedora} > 22 || 0%{?rhel:1}
 BuildRequires:          libnghttp2-devel
 # nghttpx (an HTTP/2 proxy) is used by the upstream test-suite
 BuildRequires:          nghttp2
-%endif
 BuildRequires:          libpsl-devel
 BuildRequires:          %{libssh}-devel >= %{libssh_minimum_version}
 BuildRequires:          make
@@ -331,11 +322,7 @@ export common_configure_opts=" \
     --enable-ldaps \
     --enable-manual \
     --with-brotli \
-%if %{use_libidn2}
     --with-libidn2 \
-%else
-    --with-libidn \
-%endif
     --with-libmetalink \
     --with-libpsl \
     --with-%{libssh}

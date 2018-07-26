@@ -47,7 +47,7 @@ Provides:               webclient
 %endif
 
 Version:                7.61.0
-Release:                3%{?dist}
+Release:                4%{?dist}
 License:                MIT
 URL:                    https://curl.haxx.se/
 
@@ -462,6 +462,12 @@ fi
 %exclude %{_libdir}/libcurl.la
 
 %changelog
+* Thu Jul 26 2018 Kitsune Solar <kitsune.solar@gmail.com> - 7.61.0-4
+- SPEC optimized.
+
+* Thu Jul 26 2018 Kitsune Solar <kitsune.solar@gmail.com> - 7.61.0-3
+- Build from EL7.
+
 * Fri Jul 13 2018 Paul Howarth <paul@city-fan.org> - 7.61.0-2.0.cf
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
